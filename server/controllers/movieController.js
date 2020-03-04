@@ -1,5 +1,5 @@
 const movieModel = require('../models/movieModel.js');
-const apiHelpers = require('../helpers/apiHelpers.js');
+const {fetchGenres} = require('../helpers/apiHelpers.js');
 
 //Return requests to the client
 module.exports = {
@@ -17,10 +17,16 @@ module.exports = {
   },
   getGenres: (req, res) => {
     // make an axios request to get the list of official genres
-    
-    // use this endpoint, which will also require your API key: https://api.themoviedb.org/3/genre/movie/list
-    
-    // send back
+    fetchGenres((err, response) => {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500);
+      } else {
+        res.status(200);
+        const genres = response.data.genres;
+        res.json(genres);
+      }
+    });
   },
   saveMovie: (req, res) => {
 
