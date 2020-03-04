@@ -36,7 +36,7 @@ const fetchMoviesByGenre = (genreId, callback) => {
     params: {
       api_key: API_KEY,
       with_genres: genreId,
-      "vote_count.gte": 100,
+      "vote_count.gte": 70,
       sort_by: "vote_average.asc",
       total_results: 20
     }
