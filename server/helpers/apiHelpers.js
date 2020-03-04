@@ -13,19 +13,19 @@ const { API_KEY } = require('../../config.js');
 
 
 const fetchGenres = (callback) => {
-  axios({
+  return axios({
     method: "get",
     url: "https://api.themoviedb.org/3/genre/movie/list",
     params: {
       api_key: API_KEY
     }
   })
-    .then((data) => {
-      callback(null, data);
-    })
-    .catch((err) => {
-      callback(err);
-    });
+    // .then((data) => {
+    //   callback(null, data);
+    // })
+    // .catch((err) => {
+    //   callback(err);
+    // });
 };
 
 const fetchMoviesByGenre = (genreId, callback) => {

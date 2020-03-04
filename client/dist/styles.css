@@ -71,9 +71,11 @@ html, body, #app {
 }
 
 .movie_item {
-  flex-basis: 22%;
+  flex-basis: 100%;
   box-sizing: border-box;
   margin: 1.5%;
+
+  max-width: 150px;
 
 
   display: flex;
@@ -86,7 +88,7 @@ html, body, #app {
 }
 
 .movie_item > img {
-  width: 100%;
+  width: 100%
 }
 
 .movie_description {

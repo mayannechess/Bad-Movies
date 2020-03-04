@@ -4,9 +4,8 @@ const {fetchGenres, fetchMoviesByGenre} = require('../helpers/apiHelpers.js');
 //Return requests to the client
 module.exports = {
   getSearch: (req, res) => {
-    console.log("INSIDE MOVIE CONTROLLER GET SEARCH>>>>>");
     // use this endpoint to search for movies by genres, you will need an API key
-    fetchMoviesByGenre(req.params.genre_id, (err, response) => {
+    fetchMoviesByGenre(req.query.genreId, (err, response) => {
       if (err) {
         console.error(err);
         res.sendStatus(500);
@@ -19,16 +18,22 @@ module.exports = {
   },
   getGenres: (req, res) => {
     // make an axios request to get the list of official genres
-    fetchGenres((err, response) => {
-      if (err) {
-        console.error(err);
-        res.sendStatus(500);
-      } else {
+    fetchGenres()
+      .then((data) => {
+        const genres = data.data.genres;
         res.status(200);
-        const genres = response.data.genres;
         res.json(genres);
-      }
-    });
+      })
+    // fetchGenres((err, response) => {
+    //   if (err) {
+    //     console.error(err);
+    //     res.sendStatus(500);
+    //   } else {
+    //     res.status(200);
+    //     const genres = response.data.genres;
+    //     res.json(genres);
+    //   }
+    // });
   },
   saveMovie: (req, res) => {
 

@@ -20,10 +20,9 @@ class App extends React.Component {
   }
 
   getMovies(genreId) {
-    console.log("INSIDE GETMOVIES IN APP>>>>>");
     axios.get("/movies/search", {
       params: {
-        genre_id: genreId
+        genreId: genreId
       }
     })
       .then((data) => {

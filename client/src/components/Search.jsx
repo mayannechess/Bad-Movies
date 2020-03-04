@@ -29,7 +29,6 @@ class Search extends React.Component {
 
   handleGenreChange(event) {
     const genreId = event.target.value;
-    console.log("genre id in search is", genreId);
     this.props.getMovies(genreId);
   }
 
