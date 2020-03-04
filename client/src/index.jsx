@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
+// import $ from 'jquery';
+import axios from 'axios';
 // import AnyComponent from './components/filename.jsx'
 import Search from './components/Search.jsx'
 import Movies from './components/Movies.jsx'
@@ -13,12 +14,30 @@ class App extends React.Component {
       favorites: [{deway: "favorites"}],
       showFaves: false,
     };
-    
+    this.swapFavoritesBound = this.swapFavorites.bind(this);
+    this.getMoviesBound = this.getMovies.bind(this);
     // you might have to do something important here!
   }
 
-  getMovies() {
-    // make an axios request to your server on the GET SEARCH endpoint
+  getMovies(genreId) {
+    console.log("INSIDE GETMOVIES IN APP>>>>>");
+    axios.get("/movies/search", {
+      params: {
+        genre_id: genreId
+      }
+    })
+      .then((data) => {
+        this.setState({
+          movies: data.data
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  getFavorites() {
+    // ?
   }
 
   saveMovie() {
@@ -42,7 +61,7 @@ class App extends React.Component {
         <header className="navbar"><h1>Bad Movies</h1></header> 
         
         <div className="main">
-          <Search swapFavorites={this.swapFavorites.bind(this)} showFaves={this.state.showFaves}/>
+          <Search swapFavorites={this.swapFavoritesBound} showFaves={this.state.showFaves} getMovies={this.getMoviesBound}/>
           <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} showFaves={this.state.showFaves}/>
         </div>
       </div>

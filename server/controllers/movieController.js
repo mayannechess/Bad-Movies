@@ -1,19 +1,21 @@
 const movieModel = require('../models/movieModel.js');
-const {fetchGenres} = require('../helpers/apiHelpers.js');
+const {fetchGenres, fetchMoviesByGenre} = require('../helpers/apiHelpers.js');
 
 //Return requests to the client
 module.exports = {
   getSearch: (req, res) => {
-    // get the search genre     
-
-    // https://www.themoviedb.org/account/signup
-    // get your API KEY
-
+    console.log("INSIDE MOVIE CONTROLLER GET SEARCH>>>>>");
     // use this endpoint to search for movies by genres, you will need an API key
-
-    // https://api.themoviedb.org/3/discover/movie
-
-    // and sort them by horrible votes using the search parameters in the API
+    fetchMoviesByGenre(req.params.genre_id, (err, response) => {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500);
+      } else {
+        res.status(200);
+        const movies = response.data.results;
+        res.json(movies);
+      }
+    });
   },
   getGenres: (req, res) => {
     // make an axios request to get the list of official genres
