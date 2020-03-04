@@ -20,7 +20,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getMovies(null);
+    this.getMovies("");
   }
 
   getMovies(genreId) {

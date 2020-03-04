@@ -46,7 +46,7 @@ class Search extends React.Component {
         {/* How can you tell which option has been selected from here? */}
 
         <select onChange={this.handleGenreChangeBound}>
-          <option>All</option>
+          <option value={""}>All</option>
           {options}
         </select>
         <br/><br/>
