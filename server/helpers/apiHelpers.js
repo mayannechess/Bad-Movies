@@ -19,18 +19,12 @@ const fetchGenres = (callback) => {
     params: {
       api_key: API_KEY
     }
-  })
-    // .then((data) => {
-    //   callback(null, data);
-    // })
-    // .catch((err) => {
-    //   callback(err);
-    // });
+  });
 };
 
 const fetchMoviesByGenre = (genreId, callback) => {
   // sorted by rating ascending with at least 100 votes
-  axios({
+  return axios({
     method: "get",
     url: "https://api.themoviedb.org/3/discover/movie",
     params: {
@@ -40,13 +34,13 @@ const fetchMoviesByGenre = (genreId, callback) => {
       sort_by: "vote_average.asc",
       total_results: 20
     }
-  })
-    .then((data) => {
-      callback(null, data);
-    })
-    .catch((err) => {
-      callback(err);
-    });
+  });
+    // .then((data) => {
+    //   callback(null, data);
+    // })
+    // .catch((err) => {
+    //   callback(err);
+    // });
 };
 
 module.exports.fetchGenres = fetchGenres;
