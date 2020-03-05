@@ -23,7 +23,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getMovies("");
-    this.getFavorites();
+    this.updateFavorites();
   }
 
   getMovies(genreId) {
@@ -42,7 +42,7 @@ class App extends React.Component {
       });
   }
 
-  getFavorites() {
+  updateFavorites() {
     axios.get("/movies/favorites")
       .then((data) => {
         this.setState({
@@ -63,7 +63,7 @@ class App extends React.Component {
       vote_average: movie.vote_average
     })
       .then((response) => {
-        this.getFavorites();
+        this.updateFavorites();
       })
       .catch((err) => {
         console.error(err);
@@ -71,7 +71,17 @@ class App extends React.Component {
   }
 
   deleteMovie(movie) {
-    // same as above but do something diff
+    axios.delete("/movies/delete", {
+      params: {
+        id: movie.id
+      }
+    })
+      .then((response) => {
+        this.updateFavorites();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   swapFavorites() {

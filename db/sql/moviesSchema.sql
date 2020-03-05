@@ -7,7 +7,7 @@ USE badmovies;
 DROP TABLE IF EXISTS favorites;
 
 CREATE TABLE favorites (
-  id INTEGER,
+  id INTEGER PRIMARY KEY,
   poster_path VARCHAR(255),
   original_title VARCHAR(60),
   release_date VARCHAR(60),

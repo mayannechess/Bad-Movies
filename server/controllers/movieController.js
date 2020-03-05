@@ -36,7 +36,6 @@ module.exports = {
   getFavorites: (req, res) => {
     queryAsync("SELECT * FROM favorites")
       .then((rows) => {
-        console.log("rows are", rows);
         res.status(200);
         res.json(rows);
       })
@@ -46,14 +45,18 @@ module.exports = {
       });
   },
   saveMovie: (req, res) => {
-    console.log("in controller, req is", req);
     queryAsync("INSERT INTO favorites (id, poster_path, original_title, release_date, vote_average) VALUES (?, ?, ?, ?, ?)", [req.body.id, req.body.poster_path, req.body.original_title, req.body.release_date, req.body.vote_average])
       .then((response) => {
         res.sendStatus(201);
       })
       .catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
+        if (err.code === "ER_DUP_ENTRY") {
+          res.status(303);
+          res.send("Favorite already exists");
+        } else {
+          console.error(err);
+          res.sendStatus(500);
+        }
       })
   },
   deleteMovie: (req, res) => {
